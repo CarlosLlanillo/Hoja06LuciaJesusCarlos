@@ -1,5 +1,8 @@
 package grupoAD.appconcurso.modelos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author usuario
@@ -9,23 +12,23 @@ public class Pregunta
     private int preguntaId;
     private String enunciado;
     private String categoria;
-    //private int nivel;
+    private int nivel;
     private String foto;
     private int vecesFormulada;
     private int vecesAcertada;
+    private List<Respuesta> respuestas = new ArrayList();
 
     public Pregunta()
     {
     }
 
-    public Pregunta(int preguntaId, String enunciado, String categoria,
-                    /*int nivel,*/ String foto,
+    public Pregunta(int preguntaId, String enunciado, String categoria, int nivel, String foto,
                     int vecesFormulada, int vecesAcertada)
     {
         this.preguntaId = preguntaId;
         this.enunciado = enunciado;
         this.categoria = categoria;
-        //this.nivel = nivel;
+        this.nivel = nivel;
         this.foto = foto;
         this.vecesFormulada = vecesFormulada;
         this.vecesAcertada = vecesAcertada;
@@ -61,7 +64,7 @@ public class Pregunta
         this.categoria = categoria;
     }
 
-    /*public int getNivel()
+    public int getNivel()
     {
         return nivel;
     }
@@ -69,7 +72,8 @@ public class Pregunta
     public void setNivel(int nivel)
     {
         this.nivel = nivel;
-    }*/
+    }
+
     public String getFoto()
     {
         return foto;
@@ -100,4 +104,13 @@ public class Pregunta
         this.vecesAcertada = vecesAcertada;
     }
 
+    public List<Respuesta> getRespuestas()
+    {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<Respuesta> respuestas)
+    {
+        this.respuestas = respuestas;
+    }
 }
