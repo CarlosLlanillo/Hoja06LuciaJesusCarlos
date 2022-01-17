@@ -1,0 +1,9 @@
+grupoAD/appconcurso/modelos/Categoria.class
+grupoAD/appconcurso/modelos/Test.class
+grupoAD/appconcurso/utils/GestorMariadb.class
+grupoAD/appconcurso/modelos/PreguntaFormulada.class
+grupoAD/appconcurso/modelos/Pregunta.class
+grupoAD/appconcurso/utils/gestorFicheros.class
+grupoAD/appconcurso/modelos/Respuesta.class
+grupoAD/appconcurso/utils/Conexion.class
+grupoAD/appconcurso/modelos/Usuario.class
