@@ -1,0 +1,9 @@
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/modelos/PreguntaFormulada.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/utils/gestorFicheros.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/modelos/Respuesta.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/modelos/Usuario.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/modelos/Pregunta.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/modelos/Test.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/modelos/Categoria.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/utils/GestorMariadb.java
+/home/usuario/MariaDB/AppConcurso/src/main/java/grupoAD/appconcurso/utils/Conexion.java
