@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -23,37 +24,64 @@ public class GestorMariadb
 {
     private Connection bd = Conexion.getInstance().getConnection();
 
-    public void insertarPreguntasConRespuesta(List<Pregunta> preguntas)
+    public void insertarPreguntas(List<Pregunta> listpreguntas)
     {
         try
         {
-            String textSQLPregunta = "select id,enunciado,categoria,nivel from preguntas limit 0";
+            listpreguntas = comprobarQueNoExisteLaPregunta(listpreguntas);
+            if (listpreguntas.isEmpty())
+                return;
+
+            String textSQLPregunta = "select id,enunciado,categoria,nivel "
+                                     + "from preguntas limit 0";
             PreparedStatement ps = bd.prepareStatement(textSQLPregunta,
                                                        ResultSet.TYPE_SCROLL_SENSITIVE,
                                                        ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = ps.executeQuery();
-            for (Pregunta pregunta : preguntas)
+            for (Pregunta pregunta : listpreguntas)
             {
                 rs.moveToInsertRow();
                 rs.updateString("enunciado", pregunta.getEnunciado());
                 rs.updateString("categoria", pregunta.getCategoria());
                 rs.updateInt("nivel", pregunta.getNivel());
                 rs.insertRow();
-                pregunta.setPreguntaId(rs.getInt("id"));
 
-                String textSQLRespuesta = "insert into respuestas(pregunta_id,texto,correcta) values (?,?,?)";
-                ps = bd.prepareStatement(textSQLRespuesta);
-                for (Respuesta respuesta : pregunta.getRespuestas())
-                {
-                    ps.setInt(1, pregunta.getPreguntaId());
-                    ps.setString(2, respuesta.getTexto());
-                    ps.setInt(3, (respuesta.isCorrecta() ? 1 : 0));
-                    ps.executeUpdate();
-                }
+                insertarRespuestas(pregunta.getRespuestas(), rs.getInt("id"));
             }
         } catch (SQLException ex)
         {
             Logger.getLogger(GestorFicheros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private List<Pregunta> comprobarQueNoExisteLaPregunta(List<Pregunta> listPreguntas) throws SQLException
+    {
+        String textSQL = "select enunciado "
+                         + "from preguntas "
+                         + "where enunciado = ?";
+        PreparedStatement ps = bd.prepareStatement(textSQL);
+        Iterator<Pregunta> it = listPreguntas.iterator();
+        while (it.hasNext())
+        {
+            Pregunta pregunta = it.next();
+            ps.setString(1, pregunta.getEnunciado());
+            if (ps.executeQuery().next())
+                it.remove();
+        }
+        return listPreguntas;
+    }
+
+    private void insertarRespuestas(List<Respuesta> listRespuestas, int preguntaId) throws SQLException
+    {
+        String textSQL = "insert into respuestas(pregunta_id,texto,correcta) "
+                         + "values (?,?,?)";
+        PreparedStatement ps = bd.prepareStatement(textSQL);
+        for (Respuesta respuesta : listRespuestas)
+        {
+            ps.setInt(1, preguntaId);
+            ps.setString(2, respuesta.getTexto());
+            ps.setInt(3, (respuesta.isCorrecta() ? 1 : 0));
+            ps.executeUpdate();
         }
     }
 
@@ -91,7 +119,7 @@ public class GestorMariadb
         return null;
     }
 
-    public void obtenerPreguntas(int cantidad)
+    public List<Pregunta> obtenerPreguntas(int cantidad)
     {
         LinkedList<Pregunta> listPreguntas = new LinkedList();
         try
@@ -120,11 +148,14 @@ public class GestorMariadb
         {
             Logger.getLogger(GestorFicheros.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return listPreguntas;
     }
 
     private void obtenerRespuestas(Pregunta pregunta) throws SQLException
     {
-        String textSQL = "select id,texto,correcta,veces_respondida from respuestas where pregunta_id = ?";
+        String textSQL = "select id,texto,correcta,veces_respondida "
+                         + "from respuestas "
+                         + "where pregunta_id = ?";
         PreparedStatement ps = bd.prepareStatement(textSQL);
         ps.setInt(1, pregunta.getPreguntaId());
         ResultSet rsRespuestas = ps.executeQuery();
@@ -144,7 +175,6 @@ public class GestorMariadb
         List<Pregunta> preguntas = new ArrayList();
         try
         {
-            Connection bd = Conexion.getInstance().getConnection();
             String textSQLPregunta = "select id,enunciado,categoria,nivel from preguntas where categoria=? order by rand() limit 5";
             PreparedStatement ps = bd.prepareStatement(textSQLPregunta);
             ps.setString(1, categoria);
