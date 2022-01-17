@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author usuario
+ * @author dam216
  */
 public class Pregunta
 {

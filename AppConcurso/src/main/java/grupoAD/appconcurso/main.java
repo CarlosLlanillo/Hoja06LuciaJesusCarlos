@@ -1,11 +1,11 @@
-package grupoAD.appconcurso.modelos;
+package grupoAD.appconcurso;
 
 import grupoAD.appconcurso.utils.GestorMariadb;
 import java.util.List;
 
 /**
  *
- * @author usuario
+ * @author jesus
  */
 public class main {
     public static void main(String[] args){

@@ -2,7 +2,7 @@ package grupoAD.appconcurso.modelos;
 
 /**
  *
- * @author usuario
+ * @author dam216
  */
 public class Respuesta
 {
