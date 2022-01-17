@@ -7,7 +7,6 @@ package grupoAD.appconcurso.modelos;
 public class Respuesta
 {
     private int respuestaId;
-    private int preguntaId;
     private String texto;
     private boolean correcta;
     private String foto;
@@ -17,11 +16,10 @@ public class Respuesta
     {
     }
 
-    public Respuesta(int respuestaId, int preguntaId, String texto, boolean correcta, String foto,
+    public Respuesta(int respuestaId, String texto, boolean correcta, String foto,
                      int vecesRespondida)
     {
         this.respuestaId = respuestaId;
-        this.preguntaId = preguntaId;
         this.texto = texto;
         this.correcta = correcta;
         this.foto = foto;
@@ -36,16 +34,6 @@ public class Respuesta
     public void setRespuestaId(int respuestaId)
     {
         this.respuestaId = respuestaId;
-    }
-
-    public int getPreguntaId()
-    {
-        return preguntaId;
-    }
-
-    public void setPreguntaId(int preguntaId)
-    {
-        this.preguntaId = preguntaId;
     }
 
     public String getTexto()

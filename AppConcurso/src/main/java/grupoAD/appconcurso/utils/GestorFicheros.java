@@ -8,14 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author usuario
  */
-public class gestorFicheros
+public class GestorFicheros
 {
     public static List<Pregunta> leerPreguntasCSV()
     {
