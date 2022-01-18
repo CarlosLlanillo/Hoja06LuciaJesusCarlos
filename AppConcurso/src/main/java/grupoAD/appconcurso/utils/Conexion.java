@@ -6,51 +6,46 @@ import java.sql.SQLException;
 
 /**
  *
- * @author ivan
+ * @author usario
  */
 public class Conexion
 {
 
-    private static Conexion instance;
-    private Connection db;
-    private final String urlMariadb = "jdbc:mariadb://localhost:3310/preguntastest";
-    private final String usernameMariadb = "root";
-    private final String passwordMariadb = "root";
+  private static Conexion instance;
+  private Connection db;
+  private final String urlMariadb = "jdbc:mariadb://localhost:3310/preguntastest";
+  private final String usernameMariadb = "root";
+  private final String passwordMariadb = "root";
 
-    private Conexion()
+  private Conexion()
+  {
+    try
     {
-        try
-        {
-            //Class.forName("org.mariadb.jdbc");
-            db = DriverManager.getConnection(urlMariadb, usernameMariadb, passwordMariadb);
-            return;
-        } catch (SQLException /*| ClassNotFoundException*/ ex)
-        {
-
-        }
-        System.err.println("Error al cargar el driver");
-    }
-
-    public Connection getConnection()
+      db = DriverManager.getConnection(urlMariadb, usernameMariadb, passwordMariadb);
+    } catch (SQLException ex)
     {
-        return db;
+      System.err.println("Error al cargar el driver");
     }
+  }
 
-    public static Conexion getInstance()
+  public Connection getConnection()
+  {
+    return db;
+  }
+
+  public static Conexion getInstance()
+  {
+    try
     {
-        try
-        {
-            if (instance == null)
-            {
-                instance = new Conexion();
-            } else if (instance.getConnection().isClosed())
-            {
-                instance = new Conexion();
-            }
-        } catch (SQLException ex)
-        {
-            System.err.println("Error al obtener la conexion con la base de datos");
-        }
-        return instance;
+      if (instance == null)
+        instance = new Conexion();
+      else if (instance.getConnection().isClosed())
+        instance = new Conexion();
+
+    } catch (SQLException ex)
+    {
+      System.err.println("Error al obtener la conexion con la base de datos");
     }
+    return instance;
+  }
 }
