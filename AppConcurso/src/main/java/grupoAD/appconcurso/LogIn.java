@@ -289,6 +289,7 @@ public class LogIn extends javax.swing.JDialog
             this.LblErrorRegistro.setText("Es necesario indicar la Contraseña");
             this.TfiContraseñaRegistro.requestFocus();
         }else{
+            //trasnformar el string a LocalDate
             LocalDate fechaNacimiento;
             
             //llamar al metodo de registrar nuevos usuarios
