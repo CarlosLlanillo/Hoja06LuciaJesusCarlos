@@ -65,8 +65,8 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="TfiUsuario" max="32767" attributes="0"/>
-                                      <Component id="TfiContraseña" pref="326" max="32767" attributes="0"/>
+                                      <Component id="TfiUsuario" pref="326" max="32767" attributes="0"/>
+                                      <Component id="PfiContraseña" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -87,7 +87,7 @@
                   <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="LblContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TfiContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PfiContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -130,12 +130,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnRegistrarseActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="TfiContrase&#xf1;a">
-        </Component>
         <Component class="javax.swing.JLabel" name="LblError">
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="PfiContrase&#xf1;a">
         </Component>
       </SubComponents>
     </Container>
@@ -166,16 +166,17 @@
                               <Component id="TfiUsuarioRegistro" alignment="0" pref="289" max="32767" attributes="0"/>
                               <Component id="TfiNombre" alignment="0" pref="289" max="32767" attributes="0"/>
                               <Component id="TfiFechaNacimiento" alignment="0" max="32767" attributes="0"/>
-                              <Component id="TfiContraseñaRegistro" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="LblErrorRegistro" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="Confirmar" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="Confirmar" min="-2" max="-2" attributes="0"/>
+                              <Component id="PfiContraseñaRegistro" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="144" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="275" max="32767" attributes="0"/>
+                  <Component id="LblErrorRegistro" min="-2" pref="261" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -207,15 +208,16 @@
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="LblContraseñaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TfiContraseñaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="PfiContraseñaRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BtnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Confirmar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="LblErrorRegistro" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="64" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="LblErrorRegistro" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -259,8 +261,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TfiFechaNacimiento">
         </Component>
-        <Component class="javax.swing.JTextField" name="TfiContrase&#xf1;aRegistro">
-        </Component>
         <Component class="javax.swing.JButton" name="BtnCancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
@@ -271,7 +271,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="Confirmar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Conformar"/>
+            <Property name="text" type="java.lang.String" value="Confirmar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ConfirmarActionPerformed"/>
@@ -281,6 +281,8 @@
           <Properties>
             <Property name="text" type="java.lang.String" value=" "/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="PfiContrase&#xf1;aRegistro">
         </Component>
       </SubComponents>
     </Container>

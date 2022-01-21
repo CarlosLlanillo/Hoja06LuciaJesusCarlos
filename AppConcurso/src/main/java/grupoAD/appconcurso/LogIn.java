@@ -42,8 +42,8 @@ public class LogIn extends javax.swing.JDialog
         TfiUsuario = new javax.swing.JTextField();
         BtnLogIn = new javax.swing.JButton();
         BtnRegistrarse = new javax.swing.JButton();
-        TfiContraseña = new javax.swing.JTextField();
         LblError = new javax.swing.JLabel();
+        PfiContraseña = new javax.swing.JPasswordField();
         Panel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         LblNombre = new javax.swing.JLabel();
@@ -55,10 +55,10 @@ public class LogIn extends javax.swing.JDialog
         TfiUsuarioRegistro = new javax.swing.JTextField();
         TfiNombre = new javax.swing.JTextField();
         TfiFechaNacimiento = new javax.swing.JTextField();
-        TfiContraseñaRegistro = new javax.swing.JTextField();
         BtnCancelar = new javax.swing.JButton();
         Confirmar = new javax.swing.JButton();
         LblErrorRegistro = new javax.swing.JLabel();
+        PfiContraseñaRegistro = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,8 +108,8 @@ public class LogIn extends javax.swing.JDialog
                                     .addComponent(LblContraseña))
                                 .addGap(40, 40, 40)
                                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TfiUsuario)
-                                    .addComponent(TfiContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))))))
+                                    .addComponent(TfiUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                                    .addComponent(PfiContraseña))))))
                 .addContainerGap(155, Short.MAX_VALUE))
         );
         Panel1Layout.setVerticalGroup(
@@ -122,7 +122,7 @@ public class LogIn extends javax.swing.JDialog
                 .addGap(72, 72, 72)
                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LblContraseña)
-                    .addComponent(TfiContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PfiContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64)
                 .addGroup(Panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnRegistrarse)
@@ -153,7 +153,7 @@ public class LogIn extends javax.swing.JDialog
             }
         });
 
-        Confirmar.setText("Conformar");
+        Confirmar.setText("Confirmar");
         Confirmar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -188,12 +188,13 @@ public class LogIn extends javax.swing.JDialog
                             .addComponent(TfiUsuarioRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                             .addComponent(TfiNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                             .addComponent(TfiFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TfiContraseñaRegistro, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Panel2Layout.createSequentialGroup()
-                                .addComponent(LblErrorRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Confirmar)))))
+                            .addComponent(Confirmar)
+                            .addComponent(PfiContraseñaRegistro, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap(144, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel2Layout.createSequentialGroup()
+                .addGap(0, 275, Short.MAX_VALUE)
+                .addComponent(LblErrorRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(202, 202, 202))
         );
         Panel2Layout.setVerticalGroup(
             Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,13 +220,14 @@ public class LogIn extends javax.swing.JDialog
                 .addGap(38, 38, 38)
                 .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LblContraseñaRegistro)
-                    .addComponent(TfiContraseñaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PfiContraseñaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(Panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCancelar)
-                    .addComponent(Confirmar)
-                    .addComponent(LblErrorRegistro))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addComponent(Confirmar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LblErrorRegistro)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,7 +250,8 @@ public class LogIn extends javax.swing.JDialog
 
     private void BtnLogInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BtnLogInActionPerformed
     {//GEN-HEADEREND:event_BtnLogInActionPerformed
-        Usuario user=ges.logInUsuario(TfiUsuario.getText(), TfiContraseña.getText());
+        String contraseña= new String(PfiContraseña.getPassword());
+        Usuario user=ges.logInUsuario(TfiUsuario.getText(), contraseña);
         if(user!=null){
             FrmPrincipal principal=new FrmPrincipal();
             principal.setVisible(true);
@@ -273,6 +276,7 @@ public class LogIn extends javax.swing.JDialog
 
     private void ConfirmarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ConfirmarActionPerformed
     {//GEN-HEADEREND:event_ConfirmarActionPerformed
+        String contraseña= new String(PfiContraseñaRegistro.getPassword());
         if(this.TfiNombre.getText().isEmpty()){
             this.LblErrorRegistro.setText("Es necesario indicar el Nombre");
             this.TfiNombre.requestFocus();
@@ -285,9 +289,9 @@ public class LogIn extends javax.swing.JDialog
         }else if(this.TfiUsuarioRegistro.getText().isEmpty()){
             this.LblErrorRegistro.setText("Es necesario indicar el Usuario");
             this.TfiUsuarioRegistro.requestFocus();
-        }else if(this.TfiContraseñaRegistro.getText().isEmpty()){
+        }else if(contraseña.isEmpty()){
             this.LblErrorRegistro.setText("Es necesario indicar la Contraseña");
-            this.TfiContraseñaRegistro.requestFocus();
+            this.PfiContraseñaRegistro.requestFocus();
         }else{
             //trasnformar el string a LocalDate
             LocalDate fechaNacimiento;
@@ -370,9 +374,9 @@ public class LogIn extends javax.swing.JDialog
     private javax.swing.JLabel LblUsuarioRegistro;
     private javax.swing.JPanel Panel1;
     private javax.swing.JPanel Panel2;
+    private javax.swing.JPasswordField PfiContraseña;
+    private javax.swing.JPasswordField PfiContraseñaRegistro;
     private javax.swing.JTextField TfiApellidos;
-    private javax.swing.JTextField TfiContraseña;
-    private javax.swing.JTextField TfiContraseñaRegistro;
     private javax.swing.JTextField TfiFechaNacimiento;
     private javax.swing.JTextField TfiNombre;
     private javax.swing.JTextField TfiUsuario;
