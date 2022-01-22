@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -228,5 +229,29 @@ public class GestorMariadb
             teclado.nextLine();
 
         }
+    }
+    
+    public Usuario registrarUsuario(String nombre,String apellidos, Date nacimiento,String usuario,String contraseña){
+        try
+        {
+            if (logInUsuario(usuario,contraseña)==null)
+            {
+                String textSQL = "insert into usuarios(nombre,apellidos,fecha_nacimiento,usuario,password) "
+                    + "values (?,?,?,?,?)";
+            PreparedStatement ps = bd.prepareStatement(textSQL);
+            
+            ps.setString(1, nombre);
+            ps.setString(2, apellidos);
+            ps.setDate(3, nacimiento);
+            ps.setString(4, usuario);
+            ps.setString(5, contraseña);
+            ps.executeUpdate();
+            } 
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(GestorMariadb.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return logInUsuario(usuario,contraseña);
     }
 }

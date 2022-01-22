@@ -7,7 +7,11 @@ package grupoAD.appconcurso;
 
 import grupoAD.appconcurso.modelos.Usuario;
 import grupoAD.appconcurso.utils.GestorMariadb;
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,7 +19,8 @@ import java.time.LocalDate;
  */
 public class LogIn extends javax.swing.JDialog
 {
-    GestorMariadb ges=new GestorMariadb();
+    GestorMariadb ges = new GestorMariadb();
+
     /**
      * Creates new form Login
      */
@@ -250,14 +255,16 @@ public class LogIn extends javax.swing.JDialog
 
     private void BtnLogInActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BtnLogInActionPerformed
     {//GEN-HEADEREND:event_BtnLogInActionPerformed
-        String contraseña= new String(PfiContraseña.getPassword());
-        Usuario user=ges.logInUsuario(TfiUsuario.getText(), contraseña);
-        if(user!=null){
-            FrmPrincipal principal=new FrmPrincipal();
+        String contraseña = new String(PfiContraseña.getPassword());
+        Usuario user = ges.logInUsuario(TfiUsuario.getText(), contraseña);
+        if (user != null)
+        {
+            FrmPrincipal principal = new FrmPrincipal();
             principal.setVisible(true);
             this.setVisible(false);
-            
-        }else{
+
+        } else
+        {
             this.LblError.setText("Nombre o Contraseña incorrectas.");
         }
     }//GEN-LAST:event_BtnLogInActionPerformed
@@ -276,27 +283,40 @@ public class LogIn extends javax.swing.JDialog
 
     private void ConfirmarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ConfirmarActionPerformed
     {//GEN-HEADEREND:event_ConfirmarActionPerformed
-        String contraseña= new String(PfiContraseñaRegistro.getPassword());
-        if(this.TfiNombre.getText().isEmpty()){
+        this.LblErrorRegistro.setText("");
+        String contraseña = new String(PfiContraseñaRegistro.getPassword());
+        if (this.TfiNombre.getText().isEmpty())
+        {
             this.LblErrorRegistro.setText("Es necesario indicar el Nombre");
             this.TfiNombre.requestFocus();
-        }else if(this.TfiApellidos.getText().isEmpty()){
+        } else if (this.TfiApellidos.getText().isEmpty())
+        {
             this.LblErrorRegistro.setText("Es necesario indicar los Apellidos");
             this.TfiApellidos.requestFocus();
-        }else if(this.TfiFechaNacimiento.getText().isEmpty()){
+        } else if (this.TfiFechaNacimiento.getText().isEmpty())
+        {
             this.LblErrorRegistro.setText("Es necesario indicar la Fecha");
             this.TfiFechaNacimiento.requestFocus();
-        }else if(this.TfiUsuarioRegistro.getText().isEmpty()){
+        } else if (this.TfiUsuarioRegistro.getText().isEmpty())
+        {
             this.LblErrorRegistro.setText("Es necesario indicar el Usuario");
             this.TfiUsuarioRegistro.requestFocus();
-        }else if(contraseña.isEmpty()){
+        } else if (contraseña.isEmpty())
+        {
             this.LblErrorRegistro.setText("Es necesario indicar la Contraseña");
             this.PfiContraseñaRegistro.requestFocus();
-        }else{
-            //trasnformar el string a LocalDate
-            LocalDate fechaNacimiento;
-            
-            //llamar al metodo de registrar nuevos usuarios
+        } else
+        {
+
+            String fecha = this.TfiFechaNacimiento.getText();
+            Date nacimiento = Date.valueOf(fecha);
+
+            Usuario user= ges.registrarUsuario(TfiNombre.getText(), TfiApellidos.getText(), nacimiento, TfiUsuarioRegistro.getText(), contraseña);
+            if(user==null){
+                this.LblErrorRegistro.setText("Este Usuario ya esta registrado");
+            }else{
+                this.LblErrorRegistro.setText("Usuario registrado correctamente");
+            }
         }
     }//GEN-LAST:event_ConfirmarActionPerformed
 
@@ -353,7 +373,7 @@ public class LogIn extends javax.swing.JDialog
                     }
                 });
                 dialog.setVisible(true);
-                
+
             }
         });
     }
