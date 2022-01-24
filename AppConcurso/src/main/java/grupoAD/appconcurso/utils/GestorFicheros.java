@@ -15,34 +15,34 @@ import java.util.List;
  */
 public class GestorFicheros
 {
-    public static List<Pregunta> leerPreguntasCSV()
-    {
-        LinkedList<Pregunta> preguntas = new LinkedList();
+  public static List<Pregunta> leerPreguntasCSV()
+  {
+    LinkedList<Pregunta> preguntas = new LinkedList();
 
-        try ( BufferedReader lector = Files.newBufferedReader(Path.of("../csv/preguntas.csv"));)
+    try (BufferedReader lector = Files.newBufferedReader(Path.of("../csv/preguntas.csv"));)
+    {
+      while (lector.ready())
+      {
+        String[] linea = lector.readLine().split(";");
+        if (linea[0].equals("P"))
         {
-            while (lector.ready())
-            {
-                String[] linea = lector.readLine().split(";");
-                if (linea[0].equals("P"))
-                {
-                    Pregunta pregunta = new Pregunta();
-                    pregunta.setEnunciado(linea[1]);
-                    pregunta.setCategoria(linea[2]);
-                    pregunta.setNivel(Integer.parseInt(linea[3]));
-                    preguntas.add(pregunta);
-                } else
-                {
-                    Respuesta respuesta = new Respuesta();
-                    respuesta.setTexto(linea[1]);
-                    respuesta.setCorrecta(linea[2].equals("1"));
-                    preguntas.getLast().getRespuestas().add(respuesta);
-                }
-            }
-        } catch (IOException ex)
+          Pregunta pregunta = new Pregunta();
+          pregunta.setEnunciado(linea[1]);
+          pregunta.setCategoria(linea[2]);
+          pregunta.setNivel(Integer.parseInt(linea[3]));
+          preguntas.add(pregunta);
+        } else
         {
-            System.out.println("Error al leer el csv");
+          Respuesta respuesta = new Respuesta();
+          respuesta.setTexto(linea[1]);
+          respuesta.setCorrecta(linea[2].equals("1"));
+          preguntas.getLast().getRespuestas().add(respuesta);
         }
-        return preguntas;
+      }
+    } catch (IOException ex)
+    {
+      System.out.println("Error al leer el csv");
     }
+    return preguntas;
+  }
 }

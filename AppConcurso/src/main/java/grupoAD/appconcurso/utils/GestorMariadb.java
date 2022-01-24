@@ -90,10 +90,10 @@ public class GestorMariadb
     {
         try
         {
-            String textSQLPregunta = "select u.id,u.usuario,u.password,u.nombre,u.apellidos,u.fecha_nacimiento,u.num_accesos,u.test_realizados,u.puntuacion_media "
+            String textSQLUsuario = "select u.id,u.usuario,u.password,u.nombre,u.apellidos,u.fecha_nacimiento,u.num_accesos,u.test_realizados,u.puntuacion_media "
                                      + "from usuarios u "
                                      + "where usuario = ? and password = md5(?)";
-            PreparedStatement ps = bd.prepareStatement(textSQLPregunta,
+            PreparedStatement ps = bd.prepareStatement(textSQLUsuario,
                                                        ResultSet.TYPE_SCROLL_SENSITIVE,
                                                        ResultSet.CONCUR_UPDATABLE);
             ps.setString(1, usuario);
@@ -110,8 +110,9 @@ public class GestorMariadb
                 int puntuacionMedia = rs.getInt("puntuacion_media");
                 rs.updateInt("num_accesos", accesos);
                 rs.updateRow();
-                return new Usuario(usuarioId, usuario, password, nombre, apellidos,
+                Usuario user = new Usuario(usuarioId, usuario, password, nombre, apellidos,
                                    nacimiento, accesos, testRealizados, puntuacionMedia);
+                return user;
             }
         } catch (SQLException ex)
         {
@@ -237,7 +238,7 @@ public class GestorMariadb
             if (logInUsuario(usuario,contraseña)==null)
             {
                 String textSQL = "insert into usuarios(nombre,apellidos,fecha_nacimiento,usuario,password) "
-                    + "values (?,?,?,?,?)";
+                    + "values (?,?,?,?,md5(?))";
             PreparedStatement ps = bd.prepareStatement(textSQL);
             
             ps.setString(1, nombre);
